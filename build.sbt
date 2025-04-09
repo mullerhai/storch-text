@@ -9,8 +9,9 @@ lazy val root = (project in file("."))
   .settings(
     name := "storch-text",
     javaCppVersion := (ThisBuild / javaCppVersion).value,
+//    csrCacheDirectory := file("D:\\coursier"),
   )
-
+transitiveClassifiers in Global := Seq("sources")
 ThisBuild / tlBaseVersion := "0.0" // your current series x.y
 //ThisBuild / CoursierCache := file("D:\\coursier")
 ThisBuild / organization := "dev.storch"
@@ -48,10 +49,47 @@ val hasMKL = {
   firstPlatform == "linux-x86_64" || firstPlatform == "windows-x86_64"
 }
 
+
+// https://mvnrepository.com/artifact/org.apache.tika/tika-langdetect
+//libraryDependencies += "org.apache.tika" % "tika-langdetect" % "3.1.0" pomOnly()
+// https://mvnrepository.com/artifact/org.apache.tika/tika-serialization
+// https://mvnrepository.com/artifact/org.apache.tika/tika
+//libraryDependencies += "org.apache.tika" % "tika" % "3.1.0" pomOnly()
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-zip-commons
+
 libraryDependencies ++= Seq(
   "org.apache.commons" % "commons-math3" % "3.6.1"
 
 )
+resolvers += "ctn" at "https://repo1.maven.org/maven2/"
+// https://mvnrepository.com/artifact/org.apache.tika/tika-core
+libraryDependencies += "org.apache.tika" % "tika-core" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-pdf-module
+libraryDependencies += "org.apache.tika" % "tika-parser-pdf-module" % "3.1.0"
+
+libraryDependencies += "org.apache.tika" % "tika-parser-zip-commons" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-image-module
+libraryDependencies += "org.apache.tika" % "tika-parser-image-module" % "3.1.0"
+
+libraryDependencies += "org.apache.tika" % "tika-serialization" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-text-module
+libraryDependencies += "org.apache.tika" % "tika-parser-text-module" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-microsoft-module
+libraryDependencies += "org.apache.tika" % "tika-parser-microsoft-module" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-html-module
+libraryDependencies += "org.apache.tika" % "tika-parser-html-module" % "3.1.0"
+// https://mvnrepository.com/artifact/org.apache.tika/tika-parser-miscoffice-module
+libraryDependencies += "org.apache.tika" % "tika-parser-miscoffice-module" % "3.1.0"
+// https://mvnrepository.com/artifact/io.brunk.tokenizers/tokenizers
+libraryDependencies += "io.brunk.tokenizers" %% "tokenizers" % "0.0.2"
+// https://mvnrepository.com/artifact/io.github.56duong/huggingface-nlp
+libraryDependencies += "io.github.56duong" % "huggingface-nlp" % "1.0.1"
+// https://mvnrepository.com/artifact/org.clulab/scala-transformers-encoder
+libraryDependencies += "org.clulab" %% "scala-transformers-encoder" % "0.7.0"
+// https://mvnrepository.com/artifact/org.bytedeco/sentencepiece
+libraryDependencies += "org.bytedeco" % "sentencepiece" % "0.2.0-1.5.11"
+// https://mvnrepository.com/artifact/org.bytedeco/sentencepiece-platform
+libraryDependencies += "org.bytedeco" % "sentencepiece-platform" % "0.2.0-1.5.11" //classifier
 libraryDependencies +=   "dev.storch" % "core_3" % "0.2.1-1.15.1"
 libraryDependencies +=   "dev.storch" % "vision_3" % "0.2.1-1.15.1"
 libraryDependencies +=  "org.scalameta" %% "munit" % "0.7.29" //% Test
