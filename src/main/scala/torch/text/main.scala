@@ -1,6 +1,6 @@
 package torch.text
 
-import torch.text.tokenizer.TFIDFAnalyzer
+import torch.text.viterbi.TFIDFAnalyzer
 
 @main
 def main(): Unit =

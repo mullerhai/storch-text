@@ -1,10 +1,18 @@
 package torch.text.tokenizer
 
-import java.util
 import java.util.Optional
 import scala.collection.mutable.ListBuffer
 
-class BERTTokenizer extends Tokenizer{
+class ElectraTokenizer extends Tokenizer {
+
+ 
+  /**
+   * Get the model for this tokenizer (expert mode)
+   *
+   * @return tokenizer model
+   */
+//  override def getModel: TokenizerModel = ???
+
   /**
    * Tokenize a sentence
    *
@@ -43,11 +51,4 @@ class BERTTokenizer extends Tokenizer{
    * @return prompt support
    */
   override def promptSupport: Optional[PromptSupport] = ???
-
-  /**
-   * Get the model for this tokenizer (expert mode)
-   *
-   * @return tokenizer model
-   */
-//  override def getModel: TokenizerModel = ???
 }

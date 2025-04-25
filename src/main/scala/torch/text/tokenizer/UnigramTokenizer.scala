@@ -1,10 +1,10 @@
 package torch.text.tokenizer
 
-import java.util
 import java.util.Optional
 import scala.collection.mutable.ListBuffer
 
-class BERTTokenizer extends Tokenizer{
+class UnigramTokenizer extends Tokenizer {
+
   /**
    * Tokenize a sentence
    *
@@ -38,16 +38,16 @@ class BERTTokenizer extends Tokenizer{
   override def decode(ids: Array[Long]): String = ???
 
   /**
-   * Get the prompt support for this tokenizer model if it exists
-   *
-   * @return prompt support
-   */
-  override def promptSupport: Optional[PromptSupport] = ???
-
-  /**
    * Get the model for this tokenizer (expert mode)
    *
    * @return tokenizer model
    */
 //  override def getModel: TokenizerModel = ???
+
+  /**
+   * Get the prompt support for this tokenizer model if it exists
+   *
+   * @return prompt support
+   */
+  override def promptSupport: Optional[PromptSupport] = ???
 }

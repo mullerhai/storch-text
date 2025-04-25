@@ -1,7 +1,6 @@
-package torch.text.tokenizer
+package torch.text.viterbi
 
 import torch.text.jieba.{JiebaSegmenter, Keyword}
-import torch.text.tokenizer.TFIDFAnalyzer
 
 import java.io.*
 import scala.collection.mutable

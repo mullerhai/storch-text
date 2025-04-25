@@ -3,6 +3,7 @@
 import sbt.*
 import Keys.*
 import sbt.Def.settings
+
 import scala.collection.immutable.Seq
 ThisBuild / version := "0.1.0"
 lazy val root = (project in file("."))
@@ -11,19 +12,39 @@ lazy val root = (project in file("."))
     javaCppVersion := (ThisBuild / javaCppVersion).value,
 //    csrCacheDirectory := file("D:\\coursier"),
   )
-transitiveClassifiers in Global := Seq("sources")
-ThisBuild / tlBaseVersion := "0.0" // your current series x.y
-//ThisBuild / CoursierCache := file("D:\\coursier")
-ThisBuild / organization := "dev.storch"
+
+ThisBuild / tlSonatypeUseLegacyHost := false
+ThisBuild / organization := "io.github.mullerhai" //"dev.storch"
 ThisBuild / organizationName := "storch.dev"
 ThisBuild / startYear := Some(2024)
 ThisBuild / licenses := Seq(License.Apache2)
 ThisBuild / developers := List(
   // your GitHub handle and name
-  tlGitHubDev("muller", "mullerhai")
+  tlGitHubDev("mullerhai", "mullerhai")
 )
-ThisBuild / version := "0.1.0"
+publishTo := sonatypePublishToBundle.value
+import xerial.sbt.Sonatype.sonatypeCentralHost
+ThisBuild / sonatypeCredentialHost := sonatypeCentralHost
 
+import ReleaseTransformations._
+releaseProcess := Seq[ReleaseStep](
+  checkSnapshotDependencies,
+  inquireVersions,
+  runClean,
+  runTest,
+  setReleaseVersion,
+  commitReleaseVersion,
+  tagRelease,
+  releaseStepCommandAndRemaining("+publishSigned"),
+  releaseStepCommandAndRemaining("sonatypeBundleRelease"),
+  setNextVersion,
+  commitNextVersion,
+  pushChanges,
+)
+
+transitiveClassifiers in Global := Seq("sources")
+ThisBuild / tlBaseVersion := "0.0" // your current series x.y
+//ThisBuild / CoursierCache := file("D:\\coursier")
 ThisBuild / scalaVersion := "3.6.4"
 ThisBuild / tlSonatypeUseLegacyHost := false
 
@@ -61,6 +82,8 @@ libraryDependencies ++= Seq(
   "org.apache.commons" % "commons-math3" % "3.6.1"
 
 )
+// https://mvnrepository.com/artifact/com.google.guava/guava
+libraryDependencies += "com.google.guava" % "guava" % "33.4.7-jre"
 resolvers += "ctn" at "https://repo1.maven.org/maven2/"
 // https://mvnrepository.com/artifact/org.apache.tika/tika-core
 libraryDependencies += "org.apache.tika" % "tika-core" % "3.1.0"
@@ -90,8 +113,10 @@ libraryDependencies += "org.clulab" %% "scala-transformers-encoder" % "0.7.0"
 libraryDependencies += "org.bytedeco" % "sentencepiece" % "0.2.0-1.5.11"
 // https://mvnrepository.com/artifact/org.bytedeco/sentencepiece-platform
 libraryDependencies += "org.bytedeco" % "sentencepiece-platform" % "0.2.0-1.5.11" //classifier
-libraryDependencies +=   "dev.storch" % "core_3" % "0.2.1-1.15.1"
-libraryDependencies +=   "dev.storch" % "vision_3" % "0.2.1-1.15.1"
+//libraryDependencies +=   "dev.storch" % "core_3" % "0.2.3-1.15.1"
+//libraryDependencies +=   "dev.storch" % "vision_3" % "0.2.3-1.15.1"
+libraryDependencies += "io.github.mullerhai" % "core_3" % "0.2.3-1.15.1"
+libraryDependencies += "io.github.mullerhai" % "vision_3" % "0.2.3-1.15.1"
 libraryDependencies +=  "org.scalameta" %% "munit" % "0.7.29" //% Test
 libraryDependencies +=  "org.scalameta" %% "munit-scalacheck" % "0.7.29" // % Test
 ThisBuild  / assemblyMergeStrategy := {
